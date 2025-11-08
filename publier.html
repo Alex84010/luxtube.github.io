@@ -1,45 +1,39 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LUXTUBE – Créer une vidéo</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LUXTUBE - Créer une vidéo</title>
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Inter', system-ui, sans-serif;
+      font-family: "Inter", system-ui, sans-serif;
     }
 
     body {
       display: flex;
-      background: #fff;
-      color: #222;
-      min-height: 100vh;
+      background-color: #fff;
+      height: 100vh;
+      overflow: hidden;
     }
 
-    /* --- Sidebar fixe à gauche --- */
+    /* ==== SIDEBAR ==== */
     .sidebar {
-      width: 220px;
-      background: #0d0d0d;
-      color: #fff;
+      width: 80px;
+      background-color: #0c0c0c;
+      color: white;
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
-      padding: 32px 20px;
-      flex-shrink: 0;
-      position: fixed;
-      top: 0;
-      left: 0;
-      bottom: 0;
+      align-items: center;
+      padding-top: 20px;
     }
 
     .logo {
-      font-size: 22px;
       font-weight: 800;
-      margin-bottom: 48px;
-      align-self: center;
+      font-size: 18px;
+      margin-bottom: 40px;
     }
 
     .logo span {
@@ -49,187 +43,146 @@
     .nav {
       display: flex;
       flex-direction: column;
-      gap: 22px;
-      width: 100%;
+      align-items: center;
+      gap: 26px;
     }
 
     .nav a {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      color: #cfcfcf;
       text-decoration: none;
-      font-size: 15px;
-      transition: 0.2s;
-      padding: 8px 10px;
-      border-radius: 6px;
-    }
-
-    .nav a:hover,
-    .nav a.active {
-      color: #a78bfa;
-      background: rgba(167, 139, 250, 0.1);
-    }
-
-    .nav a svg {
-      width: 22px;
-      height: 22px;
-      fill: currentColor;
-    }
-
-    .nav a.publish {
-      margin-top: 32px;
-      color: #a78bfa;
-      font-weight: 600;
-    }
-
-    /* --- Contenu principal --- */
-    main {
-      margin-left: 220px; /* espace pour la sidebar */
-      flex: 1;
-      background: #fafafa;
-      padding: 40px 24px;
+      color: #ccc;
       display: flex;
       flex-direction: column;
       align-items: center;
+      font-size: 12px;
+      transition: 0.2s;
+    }
+
+    .nav a:hover, .nav a.active {
+      color: #a78bfa;
+    }
+
+    .nav svg {
+      width: 24px;
+      height: 24px;
+      fill: currentColor;
+      margin-bottom: 4px;
+    }
+
+    .nav a.publish {
+      color: #a78bfa;
+    }
+
+    /* ==== CONTENU ==== */
+    .content {
+      flex: 1;
+      background-color: #fafafa;
+      padding: 24px;
+      overflow-y: auto;
     }
 
     h1 {
-      font-size: 26px;
+      font-size: 22px;
       font-weight: 700;
-      margin-bottom: 28px;
-      width: 100%;
-      max-width: 420px;
+      margin-bottom: 20px;
     }
 
-    /* --- Zone upload --- */
     .upload-box {
-      border: 2px dashed #d0d0d0;
-      border-radius: 12px;
-      background: #f8f8f8;
-      padding: 60px 20px;
+      border: 2px dashed #ccc;
+      border-radius: 10px;
+      background-color: #f5f5f5;
+      padding: 50px 10px;
       text-align: center;
-      color: #666;
-      font-size: 15px;
-      transition: border-color 0.2s, background 0.2s;
-      width: 100%;
-      max-width: 420px;
-      cursor: pointer;
-    }
-
-    .upload-box.dragover {
-      border-color: #a78bfa;
-      background: #f4f0ff;
+      color: #555;
+      font-size: 14px;
+      margin-bottom: 24px;
+      transition: 0.2s;
     }
 
     .upload-box svg {
-      width: 42px;
-      height: 42px;
-      fill: #999;
-      margin-bottom: 10px;
+      width: 36px;
+      height: 36px;
+      fill: #888;
+      margin-bottom: 8px;
     }
 
-    /* --- Champs texte --- */
+    .upload-box:hover {
+      border-color: #a78bfa;
+      background-color: #f0eaff;
+      color: #333;
+    }
+
     .form-group {
-      margin-top: 24px;
-      width: 100%;
-      max-width: 420px;
+      margin-bottom: 18px;
     }
 
     label {
       display: block;
       font-weight: 600;
+      font-size: 14px;
       margin-bottom: 6px;
     }
 
-    input[type="text"],
-    textarea {
+    input[type="text"], textarea {
       width: 100%;
-      padding: 14px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      font-size: 15px;
-      background: #fff;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+      background-color: #fff;
       outline: none;
-      transition: border-color 0.2s;
-    }
-
-    input:focus,
-    textarea:focus {
-      border-color: #a78bfa;
     }
 
     textarea {
-      min-height: 90px;
-      resize: vertical;
+      height: 80px;
+      resize: none;
     }
 
-    /* --- Miniature --- */
     .thumbnail-upload {
       display: flex;
       align-items: center;
-      gap: 16px;
-      margin-top: 12px;
+      gap: 12px;
+      margin-top: 8px;
     }
 
     .thumbnail-box {
-      width: 60px;
-      height: 60px;
-      border-radius: 8px;
-      background: #f2f2f2;
+      width: 50px;
+      height: 50px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
       display: flex;
       justify-content: center;
       align-items: center;
-      border: 1px solid #ddd;
+      background-color: #f5f5f5;
       cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .thumbnail-box:hover {
-      background: #f0e9ff;
-      border-color: #a78bfa;
     }
 
     .thumbnail-box svg {
-      width: 24px;
-      height: 24px;
-      fill: #999;
+      width: 20px;
+      height: 20px;
+      fill: #888;
     }
 
-    .thumbnail-preview {
-      width: 60px;
-      height: 60px;
-      border-radius: 8px;
-      object-fit: cover;
-      display: none;
-      border: 1px solid #ddd;
-    }
-
-    /* --- Bouton Publier --- */
     button {
-      display: block;
       width: 100%;
-      max-width: 420px;
-      margin-top: 28px;
-      padding: 16px;
-      border: none;
-      border-radius: 8px;
-      background: #a78bfa;
+      background-color: #a78bfa;
       color: white;
       font-weight: 600;
       font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      padding: 12px;
       cursor: pointer;
+      margin-top: 24px;
       transition: 0.2s;
     }
 
     button:hover {
-      background: #8b6ef4;
+      background-color: #8b6ef4;
     }
-
   </style>
 </head>
 <body>
-  <!-- BARRE GAUCHE -->
+  <!-- ==== BARRE GAUCHE ==== -->
   <aside class="sidebar">
     <div class="logo">LUX<span>TUBE</span></div>
     <nav class="nav">
@@ -242,7 +195,7 @@
         Trending
       </a>
       <a href="#">
-        <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4S14.21 4 12 4 8 5.79 8 8s1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4S8 5.79 8 8s1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
         Subscriptions
       </a>
       <a href="#" class="publish">
@@ -252,8 +205,8 @@
     </nav>
   </aside>
 
-  <!-- CONTENU PRINCIPAL -->
-  <main>
+  <!-- ==== CONTENU ==== -->
+  <div class="content">
     <h1>Créer une vidéo</h1>
 
     <div class="upload-box" id="uploadBox">
@@ -264,12 +217,12 @@
 
     <div class="form-group">
       <label for="title">Titre de la vidéo</label>
-      <input type="text" id="title" placeholder="Entrez le titre de la vidéo" />
+      <input type="text" id="title" placeholder="Entrez le titre" />
     </div>
 
     <div class="form-group">
       <label for="description">Description</label>
-      <textarea id="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</textarea>
+      <textarea id="description" placeholder="Décrivez votre vidéo..."></textarea>
     </div>
 
     <div class="form-group">
@@ -279,53 +232,33 @@
           <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V5a2 2 0 0 0-2-2zm-1 14H6l3.5-4.5 2.5 3 3.5-4.5L18 17z"/></svg>
         </label>
         <input type="file" id="thumbnailInput" accept="image/*" hidden />
-        <img id="thumbnailPreview" class="thumbnail-preview" alt="Aperçu miniature" />
       </div>
     </div>
 
-    <button id="publishBtn">Publier</button>
-  </main>
+    <button>Publier</button>
+  </div>
 
   <script>
     const uploadBox = document.getElementById('uploadBox');
     const videoInput = document.getElementById('videoInput');
-    const thumbInput = document.getElementById('thumbnailInput');
-    const thumbPreview = document.getElementById('thumbnailPreview');
 
     uploadBox.addEventListener('click', () => videoInput.click());
-
-    ['dragenter', 'dragover'].forEach(evt => {
-      uploadBox.addEventListener(evt, e => {
-        e.preventDefault();
-        uploadBox.classList.add('dragover');
-      });
+    uploadBox.addEventListener('dragover', e => {
+      e.preventDefault();
+      uploadBox.style.borderColor = '#a78bfa';
+      uploadBox.style.backgroundColor = '#f0eaff';
     });
-
-    ['dragleave', 'drop'].forEach(evt => {
-      uploadBox.addEventListener(evt, e => {
-        e.preventDefault();
-        uploadBox.classList.remove('dragover');
-      });
+    uploadBox.addEventListener('dragleave', e => {
+      e.preventDefault();
+      uploadBox.style.borderColor = '#ccc';
+      uploadBox.style.backgroundColor = '#f5f5f5';
     });
-
     uploadBox.addEventListener('drop', e => {
+      e.preventDefault();
+      uploadBox.style.borderColor = '#ccc';
+      uploadBox.style.backgroundColor = '#f5f5f5';
       const file = e.dataTransfer.files[0];
       if (file) alert('Vidéo sélectionnée : ' + file.name);
-    });
-
-    videoInput.addEventListener('change', e => {
-      if (e.target.files[0]) alert('Vidéo sélectionnée : ' + e.target.files[0].name);
-    });
-
-    thumbInput.addEventListener('change', e => {
-      const file = e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = ev => {
-        thumbPreview.src = ev.target.result;
-        thumbPreview.style.display = 'block';
-      };
-      reader.readAsDataURL(file);
     });
   </script>
 </body>
