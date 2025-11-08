@@ -1,1 +1,106 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>LUXTUBE — Publier</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar" aria-label="menu principal">
+      <div class="logo" title="LUXTUBE"><div class="lux">LUX</div><div class="tube">TUBE</div></div>
+
+      <nav class="nav" role="navigation">
+        <a href="index.html">
+          <svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+          <span>Home</span>
+        </a>
+
+        <a href="trending.html">
+          <svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M13 2L3 14h7v8l10-12h-7z"/></svg>
+          <span>Trending</span>
+        </a>
+
+        <a href="subscriptions.html">
+          <svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12 12c2.21 0 4-1.79 4-4S14.21 4 12 4 8 5.79 8 8s1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+          <span>Subscriptions</span>
+        </a>
+
+        <a href="publish.html" class="active">
+          <svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M13 3h-2v8H7l5 5 5-5h-4zM5 18v2h14v-2H5z"/></svg>
+          <span>Publier</span>
+        </a>
+      </nav>
+
+      <a class="publish-btn" href="publish.html" title="Publier">+</a>
+    </aside>
+
+    <main class="main">
+      <div class="header">
+        <div class="title">Créer une vidéo</div>
+        <div class="avatar" aria-hidden="true"></div>
+      </div>
+
+      <div class="container">
+        <!-- Drag & Drop area -->
+        <div class="drag-area" role="button" tabindex="0" aria-label="Glisser déposer une vidéo ou cliquer pour sélectionner">
+          <div class="big-icon">⤴︎</div>
+          <div style="font-weight:700;margin-bottom:6px;color:#444">Glissez-déposez une vidéo</div>
+          <div style="color:var(--muted)">ou cliquez pour téléverser</div>
+          <input id="videoInput" type="file" accept="video/*" style="display:none">
+        </div>
+
+        <form style="margin-top:18px" id="publishForm" onsubmit="return false;">
+          <div class="field">
+            <label for="titleInput">Titre de la vidéo</label>
+            <input id="titleInput" type="text" placeholder="Entrez le titre">
+          </div>
+
+          <div class="field">
+            <label for="descInput">Description</label>
+            <textarea id="descInput" placeholder="Ajoutez une description...">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</textarea>
+          </div>
+
+          <div class="small-row">
+            <div>
+              <label>Téléverser une miniature</label>
+              <div style="display:flex;align-items:center;gap:12px">
+                <label class="thumb-btn" for="thumbInput" title="Ajouter une miniature">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="4" fill="#eee"/><path d="M4 15l4-5 3 4 4-6 5 8H4z" fill="#ccc"/></svg>
+                </label>
+                <img id="thumbPreview" class="thumb-preview" src="" alt="Aperçu miniature" style="display:none">
+                <input id="thumbInput" type="file" accept="image/*" style="display:none">
+              </div>
+            </div>
+
+            <div style="flex:1">
+              <label>&nbsp;</label>
+              <div style="color:var(--text);font-weight:700">Téléverser une<br>miniature</div>
+            </div>
+          </div>
+
+          <div style="margin-top:14px;color:var(--muted);display:flex;align-items:center;gap:12px">
+            <div style="width:72px;height:72px;background:#f5f5f5;border-radius:8px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border)">
+              <svg width="28" height="28" viewBox="0 0 24 24"><path fill="#d0d0d0" d="M3 3h18v18H3z"/></svg>
+            </div>
+            <div>
+              <div id="videoName" style="font-weight:600;color:#9a9a9a">Aucune vidéo sélectionnée</div>
+            </div>
+          </div>
+
+          <div style="margin-top:22px">
+            <div class="progress-wrap"><div class="progress-bar"></div></div>
+            <div id="formMessage" style="margin-top:10px;color:var(--muted)"></div>
+            <button id="publishBtn" class="publish-submit">Publier</button>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
 
